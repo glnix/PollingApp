@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Приложение для опросов</string>
+    <string name="title_profile">Профиль</string>
+    <string name="title_polls">Опросы</string>
+    <string name="hint_name">Имя Фамилия Отчество</string>
+    <string name="hint_date">Дата рождения</string>
+    <string name="hint_specialization">Специализация</string>
+    <string name="submit">Сохранить</string>
+</resources>
