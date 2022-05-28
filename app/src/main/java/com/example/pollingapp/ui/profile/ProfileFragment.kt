@@ -15,7 +15,7 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    lateinit var homeViewModel: ProfileViewModel
+    private lateinit var homeViewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +24,7 @@ class ProfileFragment : Fragment() {
     ): View {
         homeViewModel =
             ViewModelProvider(this).get(ProfileViewModel::class.java)
-        homeViewModel.setContext(context!!)
+        homeViewModel.setContext(requireContext())
         homeViewModel.state.observe(viewLifecycleOwner) {
             setState(it)
         }
@@ -36,26 +36,32 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setState(state: Profile) {
-        binding.inputName.tag =
-        binding.inputName.setTextWithDefaultTag(state.name)
-        binding.inputBirthday.setTextWithDefaultTag(state.birthday)
-        binding.inputSpecialization.setTextWithDefaultTag(state.specialization)
+        with(binding) {
+            inputEmail.setTextWithDefaultTag(state.email)
+            inputPhone.setTextWithDefaultTag(state.phone)
+            tvName.text = state.name
+            tvMiddlename.text = state.middleName
+            tvLastname.text = state.lastName
+            tvBirthdate.text = state.birthday
+            tvInstitute.text = state.institute
+            tvProfile.text = state.profile
+            tvGrpup.text = state.group
+            tvSpec.text = state.specialization
+            tvYear.text = state.year
+            tvPeriod.text = state.period
+        }
     }
 
     private fun initViews() {
-        binding.inputName.addTextChangedListener {
-            if (binding.inputName.tag == null)
-                homeViewModel.onNameChanged(it.toString())
+
+        binding.inputPhone.addTextChangedListener {
+            if (binding.inputPhone.tag == null)
+                homeViewModel.onPhoneChanged(it.toString())
         }
 
-        binding.inputBirthday.addTextChangedListener {
-            if (binding.inputBirthday.tag == null)
-                homeViewModel.onBirthdayChanged(it.toString())
-        }
-
-        binding.inputSpecialization.addTextChangedListener {
-            if (binding.inputSpecialization.tag == null)
-                homeViewModel.onSpecializationChanged(it.toString())
+        binding.inputEmail.addTextChangedListener {
+            if (binding.inputEmail.tag == null)
+                homeViewModel.onEmailChanged(it.toString())
         }
 
     }

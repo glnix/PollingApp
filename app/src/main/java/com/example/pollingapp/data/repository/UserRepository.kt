@@ -16,10 +16,24 @@ class UserRepository(context: Context) {
     }
 
     fun loadProfile(): Profile {
-        val resultProfile = Gson().fromJson(prefs.getString(PROFILE_CODE, null), Profile::class.java)
-        return when(resultProfile) {
-            null -> Profile("", "", "")
+        return when(val resultProfile = Gson().fromJson(prefs.getString(PROFILE_CODE, null), Profile::class.java)) {
+            null -> initProfile()
             else -> resultProfile
         }
     }
+
+    private fun initProfile() = Profile(
+        name = "Имя: Полина",
+        middleName = "Отчество: Руслановна",
+        lastName = "Фамилия: Умеркаева",
+        birthday = "Дата рождения: 13.03.2000",
+        institute = "Институт: Инфокоммуникационных систем и технологий",
+        specialization = "Специальность/направление подготовки: Прикладная математика и информатика",
+        profile = "Профиль/специализация/направленность: Программирование, математическое моделирование",
+        group = "Группа: ПМИ-18",
+        year = "Год поступления: 2018",
+        period = "Период обучения: 4 года",
+        email = "",
+        phone = "",
+    )
 }

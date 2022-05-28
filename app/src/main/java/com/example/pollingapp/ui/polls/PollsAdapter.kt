@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pollingapp.R
 import com.example.pollingapp.data.Poll
+import com.example.pollingapp.data.isFull
 
 class PollsAdapter(private val polls: List<Poll>, val onPollClick: (Int) -> Unit) :
     RecyclerView.Adapter<PollsAdapter.PollsViewHolder>() {
@@ -30,6 +31,7 @@ class PollsAdapter(private val polls: List<Poll>, val onPollClick: (Int) -> Unit
         val poll = polls[position]
         holder.name.text = poll.name
         holder.size.text = "Количество вопросов: ${poll.questions.count()}"
+//        holder.status.text = "Статуc: ${if (poll.isFull()) "Поройден" else "Не пройден"}"
         holder.itemView.setOnClickListener {
             onPollClick(poll.id)
         }

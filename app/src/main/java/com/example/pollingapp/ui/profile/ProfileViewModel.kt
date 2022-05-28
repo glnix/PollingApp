@@ -10,7 +10,7 @@ class ProfileViewModel : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     private lateinit var context: Context
-    val state: MutableLiveData<Profile> = MutableLiveData(Profile("", "", ""))
+    val state: MutableLiveData<Profile> = MutableLiveData<Profile>()
 
     fun setContext(ctx: Context) {
         context = ctx
@@ -20,18 +20,13 @@ class ProfileViewModel : ViewModel() {
         state.value = UserRepository(context).loadProfile()
     }
 
-    fun onNameChanged(name: String) {
-        state.value = state.value?.copy(name = name)
+    fun onPhoneChanged(phone: String) {
+        state.value = state.value?.copy(phone = phone)
         state.value?.let { UserRepository(context).saveProfile(it) }
     }
 
-    fun onBirthdayChanged(date: String) {
-        state.value = state.value?.copy(birthday = date)
-        state.value?.let { UserRepository(context).saveProfile(it) }
-    }
-
-    fun onSpecializationChanged(specialization: String) {
-        state.value = state.value?.copy(specialization = specialization)
+    fun onEmailChanged(email: String) {
+        state.value = state.value?.copy(email = email)
         state.value?.let { UserRepository(context).saveProfile(it) }
     }
 }

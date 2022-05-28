@@ -1,16 +1,30 @@
 package com.example.pollingapp.data
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+data class Poll(val id: Int, val name: String, val questions: List<Question>)
 
-@Parcelize
-data class Poll(val id: Int, val name: String, val questions: List<Question>) : Parcelable
+data class Question(val id: Int, val title: String, val answers: List<Answer>)
 
-@Parcelize
-data class Question(val id: Int, val title: String, val answers: List<Answer>) : Parcelable
+data class Answer(val id: Int, val title: String, var isChecked: Boolean = false)
 
-@Parcelize
-data class Answer(val id: Int, val title: String, var isChecked: Boolean = false) : Parcelable
+data class Profile(
+    val name: String,
+    val middleName: String,
+    val lastName: String,
+    val birthday: String,
+    val institute: String,
+    val profile: String,
+    val group: String,
+    val year: String,
+    val specialization: String,
+    val period: String,
+    val email: String,
+    val phone: String
 
-@Parcelize
-data class Profile(val name: String, val birthday: String, val specialization: String) : Parcelable
+)
+
+fun Poll.isFull(): Boolean {
+    questions.forEach {
+        if (it.answers.none { it.isChecked } ) return false
+    }
+    return true
+}
