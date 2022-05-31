@@ -1,6 +1,7 @@
 package com.example.pollingapp.ui.polls
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,8 @@ class PollsAdapter(private val polls: List<Poll>, val onPollClick: (Int) -> Unit
         val poll = polls[position]
         holder.name.text = poll.name
         holder.size.text = "Количество вопросов: ${poll.questions.count()}"
-//        holder.status.text = "Статуc: ${if (poll.isFull()) "Поройден" else "Не пройден"}"
+        holder.status.text = "Статуc: ${if (poll.isFull()) "Пройден" else "Не пройден"}"
+        holder.status.setTextColor(if (poll.isFull()) Color.GRAY else Color.RED)
         holder.itemView.setOnClickListener {
             onPollClick(poll.id)
         }

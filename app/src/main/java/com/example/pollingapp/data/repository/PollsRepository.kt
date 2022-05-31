@@ -2,6 +2,7 @@ package com.example.pollingapp.data.repository
 
 import android.content.Context
 import com.example.pollingapp.data.Poll
+import com.example.pollingapp.data.isFull
 import com.google.gson.Gson
 
 class PollsRepository(context: Context) {
@@ -20,5 +21,13 @@ class PollsRepository(context: Context) {
         return saved ?: loadPolls().find { it.id == id }!!
     }
 
-    fun loadPolls() = getPolls()
+    fun loadPolls(): List<Poll> {
+        val initPolls = getPolls()
+        val updatedPolls = mutableListOf<Poll>()
+        initPolls.forEach {
+            updatedPolls.add(getSavedPollById(it.id))
+        }
+
+        return updatedPolls.apply { sortBy { it.isFull() } }
+    }
 }
