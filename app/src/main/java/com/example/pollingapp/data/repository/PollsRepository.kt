@@ -18,8 +18,11 @@ class PollsRepository(context: Context) {
 
     fun getSavedPollById(id: Int): Poll {
         val saved = Gson().fromJson(prefs.getString("$POLLS_CODE+$id", null), Poll::class.java)
-        return saved ?: loadPolls().find { it.id == id }!!
+        return saved ?: getDefaultPollById(id)
+
     }
+
+    private fun getDefaultPollById(id: Int)  = getPolls().find { it.id == id }!!
 
     fun loadPolls(): List<Poll> {
         val initPolls = getPolls()
